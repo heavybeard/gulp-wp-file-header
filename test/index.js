@@ -1,3 +1,6 @@
+/* globals require, module, describe, it */
+/* jslint node: true */
+
 'use strict';
 
 var expect = require("chai").expect;
@@ -8,13 +11,13 @@ var tmp    = path.join(__dirname, './fixtures/.working.css');
 
 require('mocha');
 
-describe('gulp-wp-file-header:', function() {
+describe('gulp-wp-file-header:', function () {
 
-    it('should add \'File Header\' to existing not empty file with some comments', function(done) {
+    it('should add \'File Header\' to existing not empty file with some comments', function (done) {
         var wf = use('not-empty-with-some-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
-        var patch = wpfh.patch(wf, function(err) {
-            expect(err).to.be.null;
+        var patch = wpfh.patch(wf, function (err) {
+            expect(err).to.be.null; // jshint ignore:line
             var fakeFileNewContents = fs.readFileSync(wf, 'utf8');
             valid(fakeFileNewContents);
             expect(fakeFileNewContents).to.not.equal(fakeFileOldContents);
@@ -23,11 +26,11 @@ describe('gulp-wp-file-header:', function() {
         });
     });
 
-    it('should add \'File Header\' to existing not empty file without comments', function(done) {
+    it('should add \'File Header\' to existing not empty file without comments', function (done) {
         var wf = use('not-empty-without-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
-        var patch = wpfh.patch(wf, function(err) {
-            expect(err).to.be.null;
+        var patch = wpfh.patch(wf, function (err) {
+            expect(err).to.be.null; // jshint ignore:line
             var fakeFileNewContents = fs.readFileSync(wf, 'utf8');
             valid(fakeFileNewContents);
             expect(fakeFileNewContents).to.not.equal(fakeFileOldContents);
@@ -36,11 +39,11 @@ describe('gulp-wp-file-header:', function() {
         });
     });
 
-    it('should add \'File Header\' to existing empty file', function(done) {
+    it('should add \'File Header\' to existing empty file', function (done) {
         var wf = use('empty-without-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
-        var patch = wpfh.patch(wf, function(err) {
-            expect(err).to.be.null;
+        var patch = wpfh.patch(wf, function (err) {
+            expect(err).to.be.null; // jshint ignore:line
             var fakeFileNewContents = fs.readFileSync(wf, 'utf8');
             valid(fakeFileNewContents);
             expect(fakeFileNewContents).to.not.equal(fakeFileOldContents);
@@ -49,10 +52,10 @@ describe('gulp-wp-file-header:', function() {
         });
     });
 
-    it('should create new file and add \'File Header\' to it', function(done) {
+    it('should create new file and add \'File Header\' to it', function (done) {
         var wf = tmp;
-        var patch = wpfh.patch(wf, function(err) {
-            expect(err).to.be.null;
+        var patch = wpfh.patch(wf, function (err) {
+            expect(err).to.be.null; // jshint ignore:line
             var fakeFileNewContents = fs.readFileSync(wf, 'utf8');
             valid(fakeFileNewContents);
             fs.unlinkSync(wf);
@@ -60,29 +63,35 @@ describe('gulp-wp-file-header:', function() {
         });
     });
 
-    it('should return error if style.css could not be created', function(done) {
+    it('should return error if style.css could not be created', function (done) {
         var wf = 'some/other/folders/style.css';
-        var patch = wpfh.patch(wf, function(err) {
-            expect(err).to.not.be.null;
+        var patch = wpfh.patch(wf, function (err) {
+            expect(err).to.not.be.null; // jshint ignore:line
             done();
         });
     });
 
 });
 
-var use = function(template) {
+var use = function (template) {
     template = path.join(__dirname, './fixtures/' + template);
     fs.createReadStream(template).pipe(fs.createWriteStream(tmp));
     return tmp;
-}
+};
 
-var valid = function(c) {
-    expect(c).to.not.be.undefined;
-    expect(c).to.not.be.null;
-    expect(c).to.not.be.empty;
+var valid = function (c) {
+    expect(c).to.not.be.undefined; // jshint ignore:line
+    expect(c).to.not.be.null; // jshint ignore:line
+    expect(c).to.not.be.empty; // jshint ignore:line
     expect(c).to.contain('Theme Name');
-    expect(c).to.contain('Version');
+    expect(c).to.contain('Theme URI');
     expect(c).to.contain('Description');
+    expect(c).to.contain('Version');
     expect(c).to.contain('Author');
+    expect(c).to.contain('Author URI');
     expect(c).to.contain('Tags');
-}
+    expect(c).to.contain('Text Domain');
+    expect(c).to.contain('Template');
+    expect(c).to.contain('License');
+    expect(c).to.contain('License URI');
+};
