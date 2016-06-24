@@ -3,7 +3,7 @@
 
 'use strict';
 
-var expect = require("chai").expect;
+var expect = require('chai').expect;
 var wpfh   = require('..')('./package.json');
 var path   = require('path');
 var fs     = require('fs');
