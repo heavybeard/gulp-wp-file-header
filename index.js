@@ -1,3 +1,6 @@
+/* globals require, module */
+/* jslint node: true */
+
 'use strict';
 
 var _   = require('lodash');
@@ -6,28 +9,30 @@ var p   = require('path');
 var pad = require('pad');
 
 var fields = {
-    "name"        : "Theme Name",
-    "homepage"    : "Theme URI",
-    "description" : "Description",
-    "version"     : "Version",
-    "author"      : "Author",
-    "keywords"    : "Tags",
-    "dependencies": {
-        "parent-theme": "Template"
-    }
+    'name'        : 'Theme Name',
+    'homepage'    : 'Theme URI',
+    'description' : 'Description',
+    'version'     : 'Version',
+    'author'      : 'Author',
+    'authoruri'   : 'Author URI',
+    'keywords'    : 'Tags',
+    'textdomain'  : 'Text Domain',
+    'template'    : 'Template',
+    'license'     : 'License',
+    'licenseuri'  : 'License URI',
 };
 
-module.exports = function(path) {
+module.exports = function (path) {
     return new WPFileHeader(path);
 };
 
 /**
  * WPFileHeader constructor.
- * @param {string} path package.json filepath.
+ * @param       {string} path package.json filepath.
  * @constructor
  */
-var WPFileHeader = function(path) {
-    if (typeof path === "undefined") {
+var WPFileHeader = function (path) {
+    if (typeof path === 'undefined') {
         path = './package.json';
     }
     this.manifest_path = p.normalize(path);
@@ -37,13 +42,15 @@ var WPFileHeader = function(path) {
  * Modifes style.css.
  * This will also create one if not exists, but will not create directories.
  *
- * @param {string=} style style.css filepath. Default './style.css'.
- * @param {Function=} cb Callback function to be called.
- * @return {void}
+ * @param   {string=} style style.css filepath. Default './style.css'.
+ * @param   {Function=} cb Callback function to be called.
+ * @return  {void}
  */
-WPFileHeader.prototype.patch = function(style, cb) {
-    if (typeof style === "undefined" || typeof style === 'function') {
-        cb = style;
+WPFileHeader.prototype.patch = function (style, callback) {
+    var commentsPattern = /(?:\/\*(?:[\s\S]*?)\*\/\s?)|(?:([\s;])+\/\/(?:.*)$)/;
+
+    if (typeof style === 'undefined' || typeof style === 'function') {
+        callback = style;
         style = './style.css';
     }
 
@@ -51,27 +58,39 @@ WPFileHeader.prototype.patch = function(style, cb) {
 
     fs.readFile(this.manifest_path, 'utf8', function (err, manifest) {
         if (err) {
-            if (cb) cb(err);
-            else throw err;
-        } else {
+            if (callback) {
+                callback(err);
+            }
+            else {
+                throw err;
+            }
+        }
+        else {
             manifest = JSON.parse(manifest);
             fs.readFile(style, 'utf8', function (err, data) {
                 if (err && err.code !== 'ENOENT') {
-                    if (cb) cb(err);
+                    if (callback) callback(err);
                     else throw err;
-                } else {
-                    if (typeof data === "undefined") data = "";
-                    var commentsPattern = /(?:\/\*(?:[\s\S]*?)\*\/\s?)|(?:([\s;])+\/\/(?:.*)$)/;
+                }
+                else {
+                    if (typeof data === 'undefined') data = '';
                     if (commentsPattern.test(data)) {
                         data = data.replace(commentsPattern, '');
                     }
                     data = createContent(manifest) + data;
-                    fs.writeFile(style, data, function(err) {
+                    fs.writeFile(style, data, function (err) {
                         if (err) {
-                            if (cb) cb(err);
-                            else throw err;
-                        } else {
-                            if (cb) cb(null);
+                            if (callback) {
+                                callback(err);
+                            }
+                            else {
+                                throw err;
+                            }
+                        }
+                        else {
+                            if (callback) {
+                                callback(null);
+                            }
                         }
                     });
                 }
@@ -83,24 +102,34 @@ WPFileHeader.prototype.patch = function(style, cb) {
 /**
  * Creates style.css header content.
  *
- * @param {Object} manifest
- * @return {string}
- *
- * TODO: add Author URI
- * TODO: add license info
+ * @param   {Object} manifest
+ * @return  {string}
  */
- var createContent = function(manifest) {
+ var createContent = function (manifest) {
     var out = "/*\n";
-    _.forEach(fields, function(n, key) {
-        if (typeof manifest[key] != "undefined") {
-            if (key == "dependencies") {
-                out += pad(n["parent-theme"]+":", 20) + manifest[key]["parent-theme"] + "\n";
-            } else {
-                out += pad(n+":", 20) + manifest[key] + "\n";
+    _.forEach(fields, function (n, key) {
+        if (typeof manifest[key] != 'undefined') {
+            if (key === 'name') {
+                manifest[key] = capitalize(manifest[key]);
             }
+            out += pad(n + ':', 20) + manifest[key] + "\n";
         }
     });
     out += "*/\n";
 
     return out;
+};
+
+/**
+ * Convert package.json name in capitalize and spaced
+ *
+ * @param   {string} name The package name in format name-of-package
+ * @return  {string}
+ */
+var capitalize = function (text) {
+    text = text.replace(/-/g, ' ');
+
+    return text.replace(/\w\S*/g, function (string) {
+        return string.charAt(0).toUpperCase() + string.substr(1).toLowerCase();
+    });
 };
