@@ -9,7 +9,7 @@ var path   = require('path');
 var fs     = require('fs');
 var tmp    = path.join(__dirname, './fixtures/.working.css');
 
-var messages = {
+var testName = {
     withComments:       'Add "File Header" to no-empty file with some comments',
     withoutComments:    'Add "File Header" to no-empty file without comments',
     emptyFile:          'Add "File Header" to empty file',
@@ -21,7 +21,7 @@ require('mocha');
 
 describe('gulp-wp-file-header:', function () {
 
-    it(messages.withComments, function (done) {
+    it(testName.withComments, function (done) {
         var wf = use('not-empty-with-some-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
         var patch = wpfh.patch(wf, function (err) {
@@ -34,7 +34,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it(messages.withoutComments, function (done) {
+    it(testName.withoutComments, function (done) {
         var wf = use('not-empty-without-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
         var patch = wpfh.patch(wf, function (err) {
@@ -47,7 +47,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it(messages.emptyFile, function (done) {
+    it(testName.emptyFile, function (done) {
         var wf = use('empty-without-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
         var patch = wpfh.patch(wf, function (err) {
@@ -60,7 +60,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it(messages.newFile, function (done) {
+    it(testName.newFile, function (done) {
         var wf = tmp;
         var patch = wpfh.patch(wf, function (err) {
             expect(err).to.be.null; // jshint ignore:line
@@ -71,7 +71,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it(messages.fileNotCreated, function (done) {
+    it(testName.fileNotCreated, function (done) {
         var wf = 'some/other/folders/style.css';
         var patch = wpfh.patch(wf, function (err) {
             expect(err).to.not.be.null; // jshint ignore:line
@@ -92,14 +92,7 @@ var valid = function (c) {
     expect(c).to.not.be.null; // jshint ignore:line
     expect(c).to.not.be.empty; // jshint ignore:line
     expect(c).to.contain('Theme Name');
-    expect(c).to.contain('Theme URI');
     expect(c).to.contain('Description');
     expect(c).to.contain('Version');
     expect(c).to.contain('Author');
-    expect(c).to.contain('Author URI');
-    expect(c).to.contain('Tags');
-    expect(c).to.contain('Text Domain');
-    expect(c).to.contain('Template');
-    expect(c).to.contain('License');
-    expect(c).to.contain('License URI');
 };
