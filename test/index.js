@@ -9,11 +9,19 @@ var path   = require('path');
 var fs     = require('fs');
 var tmp    = path.join(__dirname, './fixtures/.working.css');
 
+var messages = {
+    withComments:       'Add "File Header" to no-empty file with some comments',
+    withoutComments:    'Add "File Header" to no-empty file without comments',
+    emptyFile:          'Add "File Header" to empty file',
+    newFile:            'Create new file and add "File Header" to it',
+    fileNotCreated:     'Return error if style.css could not be created'
+};
+
 require('mocha');
 
 describe('gulp-wp-file-header:', function () {
 
-    it('should add \'File Header\' to existing not empty file with some comments', function (done) {
+    it(messages.withComments, function (done) {
         var wf = use('not-empty-with-some-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
         var patch = wpfh.patch(wf, function (err) {
@@ -26,7 +34,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it('should add \'File Header\' to existing not empty file without comments', function (done) {
+    it(messages.withoutComments, function (done) {
         var wf = use('not-empty-without-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
         var patch = wpfh.patch(wf, function (err) {
@@ -39,7 +47,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it('should add \'File Header\' to existing empty file', function (done) {
+    it(messages.emptyFile, function (done) {
         var wf = use('empty-without-comments.css');
         var fakeFileOldContents = fs.readFileSync(wf, 'utf8');
         var patch = wpfh.patch(wf, function (err) {
@@ -52,7 +60,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it('should create new file and add \'File Header\' to it', function (done) {
+    it(messages.newFile, function (done) {
         var wf = tmp;
         var patch = wpfh.patch(wf, function (err) {
             expect(err).to.be.null; // jshint ignore:line
@@ -63,7 +71,7 @@ describe('gulp-wp-file-header:', function () {
         });
     });
 
-    it('should return error if style.css could not be created', function (done) {
+    it(messages.fileNotCreated, function (done) {
         var wf = 'some/other/folders/style.css';
         var patch = wpfh.patch(wf, function (err) {
             expect(err).to.not.be.null; // jshint ignore:line
