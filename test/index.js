@@ -4,7 +4,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var wpfh   = require('..')('./package.json');
+var wpfh   = require('..')('./test/package.json');
 var path   = require('path');
 var fs     = require('fs');
 var tmp    = path.join(__dirname, './fixtures/.working.css');
