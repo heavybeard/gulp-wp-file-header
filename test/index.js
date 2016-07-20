@@ -19,7 +19,7 @@ var testName = {
 
 require('mocha');
 
-describe('gulp-wp-file-header:', function () {
+describe('wp-file-header:', function () {
 
     it(testName.withComments, function (done) {
         var wf = use('not-empty-with-some-comments.css');

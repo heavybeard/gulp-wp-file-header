@@ -1,4 +1,4 @@
-# gulp-wp-file-header
+# wp-file-header
 
 [Node.js](https://nodejs.org) plugin that adds ['File Header'](https://codex.wordpress.org/File_Header) to [Wordpress Theme's style.css file](https://codex.wordpress.org/Theme_Development#Theme_Stylesheet) based on [package.json](https://docs.npmjs.com/files/package.json) data
 
@@ -7,7 +7,7 @@ For now works only with style.css file (supports only WP Themes, not plugins)
 ## Installation
 
 ```bash
-$ npm i gulp-wp-file-header --save-dev
+$ npm wp-file-header --save-dev
 ```
 
 ## Description

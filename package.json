@@ -1,7 +1,7 @@
 {
-  "name": "gulp-wp-file-header",
+  "name": "wp-file-header",
   "version": "1.0.0",
-  "homepage": "https://github.com/oleynikd/gulp-wp-file-header",
+  "homepage": "https://github.com/heavybeard/wp-file-header/",
   "description": "Adds 'File Header' to Wordpress Theme's style.css file based on package.json data",
   "author": "Denis Oleynik <oleynik.denis@gmail.com>",
   "contributors": [{
@@ -22,9 +22,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/oleynikd/gulp-wp-file-header.git"
+    "url": "git://github.com/heavybeard/wp-file-header.git"
   },
-  "bugs": "https://github.com/oleynikd/gulp-wp-file-header/issues",
+  "bugs": "https://github.com/heavybeard/wp-file-header/issues",
   "keywords": [
     "wordpress",
     "wp",
