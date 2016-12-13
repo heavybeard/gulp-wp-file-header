@@ -30,5 +30,6 @@
     "textdomain": "twentythirteen",
     "license": "GNU General Public License v2 or later",
     "licenseuri": "http://www.gnu.org/licenses/gpl-2.0.html",
+    "themename": "Twenty Thirteen",
     "template": "twentytwelve"
 }
