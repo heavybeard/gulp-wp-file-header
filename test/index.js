@@ -3,11 +3,11 @@
 
 'use strict';
 
-var expect = require('chai').expect;
-var wpfh = require('..')('./test/package.json');
-var path = require('path');
-var fs = require('fs');
-var tmp = path.join(__dirname, './fixtures/.working.css');
+var expect = require('chai').expect,
+	wpfh = require('..')('./test/package.json'),
+	path = require('path'),
+	fs = require('fs'),
+	tmp = path.join(__dirname, './fixtures/.working.css');
 
 var testName = {
 	withComments: 'Add "File Header" to no-empty file with some comments',

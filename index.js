@@ -3,10 +3,10 @@
 
 'use strict';
 
-var _ = require('lodash');
-var fs = require('fs');
-var p = require('path');
-var pad = require('pad');
+var _ = require('lodash'),
+	fs = require('fs'),
+	p = require('path'),
+	pad = require('pad');
 
 var fields = {
 	'themename': 'Theme Name',
@@ -69,11 +69,17 @@ WPFileHeader.prototype.patch = function (style, callback) {
 			manifest = JSON.parse(manifest);
 			fs.readFile(style, 'utf8', function (err, data) {
 				if (err && err.code !== 'ENOENT') {
-					if (callback) callback(err);
-					else throw err;
+					if (callback) {
+						callback(err);
+					}
+					else {
+						throw err;
+					}
 				}
 				else {
-					if (typeof data === 'undefined') data = '';
+					if (typeof data === 'undefined') {
+						data = '';
+					}
 					if (commentsPattern.test(data)) {
 						data = data.replace(commentsPattern, '');
 					}

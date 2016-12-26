@@ -92,8 +92,8 @@ wp.patch();
 #### With Gulp:
 
 ```js
-var gulp = require('gulp');
-var wp   = require('wp-file-header')('./package.json');
+var gulp = require('gulp'),
+	wp   = require('wp-file-header')('./package.json');
 
 gulp.task('wp', function () {
 	wp.patch('./style.css', function(err){
