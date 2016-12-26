@@ -7,7 +7,7 @@ For now works only with style.css file (supports only WP Themes, not plugins)
 ## Installation
 
 ```bash
-$ npm wp-file-header --save-dev
+$ npm i wp-file-header --save-dev
 ```
 
 ## Description
