@@ -1,10 +1,11 @@
 {
   "name": "wp-file-header",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "homepage": "https://github.com/heavybeard/wp-file-header/",
   "description": "Adds 'File Header' to Wordpress Theme's style.css file based on package.json data",
   "author": "Denis Oleynik <oleynik.denis@gmail.com>",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Heavybeard",
       "email": "info@heavybeard.it",
       "url": "http://heavybeard.it/"
@@ -13,7 +14,8 @@
       "name": "Cristiano Possa",
       "email": "crispossa@live.com",
       "url": "http://crispossa.com.br"
-  }],
+    }
+  ],
   "scripts": {
     "test": "mocha --reporter spec"
   },
