@@ -122,17 +122,3 @@ var createContent = function (manifest) {
 
 	return out;
 };
-
-/**
- * Convert package.json name in capitalize and spaced
- *
- * @param   {string} name The package name in format name-of-package
- * @return  {string}
- */
-var capitalize = function (text) {
-	text = text.replace(/-/g, ' ');
-
-	return text.replace(/\w\S*/g, function (string) {
-		return string.charAt(0).toUpperCase() + string.substr(1).toLowerCase();
-	});
-};
