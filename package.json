@@ -1,6 +1,6 @@
 {
   "name": "wp-file-header",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "homepage": "https://github.com/heavybeard/wp-file-header/",
   "description": "Adds 'File Header' to Wordpress Theme's style.css file based on package.json data",
   "author": "Denis Oleynik <oleynik.denis@gmail.com>",
